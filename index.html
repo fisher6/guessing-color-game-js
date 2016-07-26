@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Color guessing game - week 2 assignment</title>
+  <meta name="description" content="Week 2 Final Assignment - Color Guessing Game">
+	<meta name="author" content="Gal (Julian) Fisher">
+
+  <!-- Javascript starts here -->
+  <script>
+  // Javascript code for assignment 2
+  // Written by Gal (Julian) Fisher, July 2016
+
+  // Global variables
+  var allColors = ["aliceblue", "antiquewhite", "aqua", "aquamarine", "azure", "beige", "bisque", "black", "blanchedalmond", "blue", "blueviolet", "brown", "burlywood", "cadetblue", "chartreuse", "chocolate", "coral", "cornflowerblue", "cornsilk", "crimson", "cyan", "darkblue", "darkcyan", "darkgoldenrod", "darkgray", "darkgrey", "darkgreen", "darkkhaki", "darkmagenta", "darkolivegreen", "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue", "darkslategray", "darkslategrey", "darkturquoise", "darkviolet", "deeppink", "deepskyblue", "dimgray", "dimgrey", "dodgerblue", "firebrick", "floralwhite", "forestgreen", "fuchsia", "gainsboro", "ghostwhite", "gold", "goldenrod", "gray", "grey", "green", "greenyellow", "honeydew", "hotpink", "indianred", "", "indigo", "", "ivory", "khaki", "lavender", "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral", "lightcyan", "lightgoldenrodyellow", "lightgray", "lightgrey", "lightgreen", "lightpink", "lightsalmon", "lightseagreen", "lightskyblue", "lightslategray", "lightslategrey", "lightsteelblue", "lightyellow", "lime", "limegreen", "linen", "magenta", "maroon", "mediumaquamarine", "mediumblue", "mediumorchid", "mediumpurple", "mediumseagreen", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin", "navajowhite", "navy", "oldlace", "olive", "olivedrab", "orange", "orangered", "orchid", "palegoldenrod", "palegreen", "paleturquoise", "palevioletred", "papayawhip", "peachpuff", "peru", "pink", "plum", "powderblue", "purple", "rebeccapurple", "red", "rosybrown", "royalblue", "saddlebrown", "salmon", "sandybrown", "seagreen", "seashell", "sienna", "silver", "skyblue", "slateblue", "slategray", "slategrey", "snow", "springgreen", "steelblue", "tan", "teal", "thistle", "tomato", "turquoise", "violet", "wheat", "white", "whitesmoke", "yellow", "yellowgreen"];
+  var colorsNum = 12
+
+  function do_game() {
+    // randomly choose colorsNum colors for the user to guess from
+    var gameColors = getRandomColors();
+    var color = gameColors[Math.floor(Math.random()*gameColors.length)];
+    //document.write("gameColors: " + gameColors.join(" ")); // for debugging
+    //document.write(" || Chosen color: " + color); // for debugging
+    check_guess(gameColors, color);
+
+  }
+
+  // function returns a sorted array of colorsNum colors chosen from allColors
+  function getRandomColors() {
+    var randomColorsArray = [];
+    while (randomColorsArray.length != colorsNum) {
+      var color = allColors[Math.floor(Math.random()*allColors.length)];
+      if (randomColorsArray.indexOf(color) == -1) {
+        randomColorsArray.push(color);
+      }
+    }
+    return randomColorsArray.sort();
+  }
+
+  function check_guess(gameColors, color) {
+    var guessCount = 1;
+    while (true) { // the user will guess until he succeeds and function's over
+      var input = /*String(*/prompt("I a thinking of one of these colors:\n\n" +
+      gameColors.join(", ") + "\n\nWhat color am I thinking of?")/*)*/;
+      if (gameColors.indexOf(input) == -1) {
+        alert("Sorry, I don't recognize your color.\n\nPlease try again.");
+      }
+      else if (input > color) {
+        alert("Sorry, your guess is not correct!\n\nHint: your color is " +
+        "alphabetically higher than mine.\n\nPlease try again.");
+        guessCount++;
+      }
+      else if (input < color) {
+        alert("Sorry, your guess is not correct!\n\nHint: your color is " +
+        "alphabetically lower than mine.\n\nPlease try again.");
+        guessCount++;
+      }
+      else {
+        alert("Congratulations! You have guess the color!\n\nIt took you " +
+        guessCount + " guesses to finish the game!\n\nYou can see the color " +
+        "in the background.");
+        document.getElementsByTagName("body")[0].style.background=color;
+        return true;
+      }
+    }
+  }
+  </script>
+  <!-- Javascript ends here -->
+
+</head>
+<body onload="do_game()">
+</body>
+</html>
